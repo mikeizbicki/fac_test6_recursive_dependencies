@@ -1,0 +1,75 @@
+# this test case follows a different structure than the previous;
+# there are several json files stored in the jsons folder
+# the first two test cases test non-recusive dependency-only variables based on these jsons;
+# then the later ones test recursive and dual recursive versions
+
+"simple/$TEST/$NAME":
+  cmd: echo "test" > simple/$TEST/$NAME
+  dependencies:
+    - jsons/$TEST
+  variables:
+    TEST: ls jsons
+    NAME: jq -r '.sections[].name' jsons/$TEST
+
+"nonrecursive/$TEST/$NAME":
+  cmd: |
+    cat > nonrecursive/$TEST/$NAME <<EOF
+    TEST=$TEST
+    NAME=$NAME
+    DEP=$DEP
+    FAC_DEPENDENCIES=$FAC_DEPENDENCIES
+    EOF
+  dependencies:
+    - jsons/$TEST
+    - simple/$TEST/$DEP
+  variables:
+    TEST: ls jsons
+    NAME: jq -r '.sections[].name' jsons/$TEST
+    DEP: jq -r ".sections[] | select(.name == \"$NAME\") | .depends[]" jsons/$TEST
+
+"recursive/$TEST/$NAME":
+  cmd: |
+    cat > recursive/$TEST/$NAME <<EOF
+    TEST=$TEST
+    NAME=$NAME
+    DEP=$DEP
+    FAC_DEPENDENCIES=$FAC_DEPENDENCIES
+    EOF
+  dependencies:
+    - jsons/$TEST
+    - recursive/$TEST/$DEP
+  variables:
+    TEST: ls jsons
+    NAME: jq -r '.sections[].name' jsons/$TEST
+    DEP: jq -r ".sections[] | select(.name == \"$NAME\") | .depends[]" jsons/$TEST
+
+"dualrecursion1/$TEST/$NAME":
+  cmd: |
+    cat > dualrecursion1/$TEST/$NAME <<EOF
+    TEST=$TEST
+    NAME=$NAME
+    DEP=$DEP
+    FAC_DEPENDENCIES=$FAC_DEPENDENCIES
+    EOF
+  dependencies:
+    - jsons/$TEST
+    - dualrecursion2/$TEST/$DEP
+  variables:
+    TEST: ls jsons
+    NAME: jq -r '.sections[].name' jsons/$TEST
+    DEP: jq -r ".sections[] | select(.name == \"$NAME\") | .depends[]" jsons/$TEST
+
+"dualrecursion2/$TEST/$NAME":
+  cmd: |
+    cat > dualrecursion2/$TEST/$NAME <<EOF
+    TEST=$TEST
+    NAME=$NAME
+    DEP=$DEP
+    FAC_DEPENDENCIES=$FAC_DEPENDENCIES
+    EOF
+  dependencies:
+    - dualrecursion1/$TEST/$DEP
+  variables:
+    TEST: ls jsons
+    NAME: jq -r '.sections[].name' jsons/$TEST
+    DEP: jq -r ".sections[] | select(.name == \"$NAME\") | .depends[]" jsons/$TEST

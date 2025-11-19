@@ -1,0 +1,12 @@
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": []}
+    , {"name": "c", "depends": ["a", "b"]}
+    , {"name": "d", "depends": ["a", "c"]}
+    , {"name": "e", "depends": ["a", "b"]}
+    , {"name": "f", "depends": ["e", "d", "c"]}
+    , {"name": "g", "depends": ["f"]}
+    ]
+}
+
+

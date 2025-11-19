@@ -1,0 +1,254 @@
+./dualrecursion1/forward.json/a
+---
+TEST=forward.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=jsons/forward.json
+
+
+---
+./dualrecursion1/forward.json/c
+---
+TEST=forward.json
+NAME=c
+DEP=b
+FAC_DEPENDENCIES=dualrecursion2/forward.json/b
+jsons/forward.json
+
+
+---
+./dualrecursion1/forward.json/e
+---
+TEST=forward.json
+NAME=e
+DEP=d
+FAC_DEPENDENCIES=dualrecursion2/forward.json/d
+jsons/forward.json
+
+
+---
+./dualrecursion1/forward.json/g
+---
+TEST=forward.json
+NAME=g
+DEP=f
+FAC_DEPENDENCIES=dualrecursion2/forward.json/f
+jsons/forward.json
+
+
+---
+./dualrecursion1/layered.json/g
+---
+TEST=layered.json
+NAME=g
+DEP=
+FAC_DEPENDENCIES=jsons/layered.json
+
+
+---
+./dualrecursion1/multiple.json/a
+---
+TEST=multiple.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=jsons/multiple.json
+
+
+---
+./dualrecursion1/multiple.json/b
+---
+TEST=multiple.json
+NAME=b
+DEP=
+FAC_DEPENDENCIES=jsons/multiple.json
+
+
+---
+./dualrecursion1/multiple.json/c
+---
+TEST=multiple.json
+NAME=c
+DEP=a
+b
+FAC_DEPENDENCIES=dualrecursion2/multiple.json/a
+dualrecursion2/multiple.json/b
+jsons/multiple.json
+
+
+---
+./dualrecursion1/multiple.json/d
+---
+TEST=multiple.json
+NAME=d
+DEP=a
+c
+FAC_DEPENDENCIES=dualrecursion2/multiple.json/a
+dualrecursion2/multiple.json/c
+jsons/multiple.json
+
+
+---
+./dualrecursion1/multiple.json/e
+---
+TEST=multiple.json
+NAME=e
+DEP=a
+b
+FAC_DEPENDENCIES=dualrecursion2/multiple.json/a
+dualrecursion2/multiple.json/b
+jsons/multiple.json
+
+
+---
+./dualrecursion1/multiple.json/g
+---
+TEST=multiple.json
+NAME=g
+DEP=f
+FAC_DEPENDENCIES=dualrecursion2/multiple.json/f
+jsons/multiple.json
+
+
+---
+./dualrecursion1/reverse.json/g
+---
+TEST=reverse.json
+NAME=g
+DEP=
+FAC_DEPENDENCIES=jsons/reverse.json
+
+
+---
+./dualrecursion2/forward.json/b
+---
+TEST=forward.json
+NAME=b
+DEP=a
+FAC_DEPENDENCIES=dualrecursion1/forward.json/a
+
+
+---
+./dualrecursion2/forward.json/d
+---
+TEST=forward.json
+NAME=d
+DEP=c
+FAC_DEPENDENCIES=dualrecursion1/forward.json/c
+
+
+---
+./dualrecursion2/forward.json/f
+---
+TEST=forward.json
+NAME=f
+DEP=e
+FAC_DEPENDENCIES=dualrecursion1/forward.json/e
+
+
+---
+./dualrecursion2/multiple.json/a
+---
+TEST=multiple.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=
+
+
+---
+./dualrecursion2/multiple.json/b
+---
+TEST=multiple.json
+NAME=b
+DEP=
+FAC_DEPENDENCIES=
+
+
+---
+./dualrecursion2/multiple.json/c
+---
+TEST=multiple.json
+NAME=c
+DEP=a
+b
+FAC_DEPENDENCIES=dualrecursion1/multiple.json/a
+dualrecursion1/multiple.json/b
+
+
+---
+./dualrecursion2/multiple.json/f
+---
+TEST=multiple.json
+NAME=f
+DEP=e
+d
+c
+FAC_DEPENDENCIES=dualrecursion1/multiple.json/c
+dualrecursion1/multiple.json/d
+dualrecursion1/multiple.json/e
+
+
+---
+./jsons/forward.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": ["a"]}
+    , {"name": "c", "depends": ["b"]}
+    , {"name": "d", "depends": ["c"]}
+    , {"name": "e", "depends": ["d"]}
+    , {"name": "f", "depends": ["e"]}
+    , {"name": "g", "depends": ["f"]}
+    ]
+}
+
+
+---
+./jsons/layered.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": ["a"]}
+    , {"name": "c", "depends": []}
+    , {"name": "d", "depends": ["c"]}
+    , {"name": "e", "depends": []}
+    , {"name": "f", "depends": ["e"]}
+    , {"name": "g", "depends": []}
+    ]
+}
+
+
+
+---
+./jsons/multiple.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": []}
+    , {"name": "c", "depends": ["a", "b"]}
+    , {"name": "d", "depends": ["a", "c"]}
+    , {"name": "e", "depends": ["a", "b"]}
+    , {"name": "f", "depends": ["e", "d", "c"]}
+    , {"name": "g", "depends": ["f"]}
+    ]
+}
+
+
+
+
+---
+./jsons/reverse.json
+---
+{ "sections":
+    [ {"name": "a", "depends": ["b"]}
+    , {"name": "b", "depends": ["c"]}
+    , {"name": "c", "depends": ["d"]}
+    , {"name": "d", "depends": ["e"]}
+    , {"name": "e", "depends": ["f"]}
+    , {"name": "f", "depends": ["g"]}
+    , {"name": "g", "depends": []}
+    ]
+}
+
+
+
+---

@@ -1,0 +1,157 @@
+./dualrecursion1/forward.json/a
+---
+TEST=forward.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=jsons/forward.json
+
+
+---
+./dualrecursion1/layered.json/a
+---
+TEST=layered.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=jsons/layered.json
+
+
+---
+./dualrecursion1/multiple.json/a
+---
+TEST=multiple.json
+NAME=a
+DEP=
+FAC_DEPENDENCIES=jsons/multiple.json
+
+
+---
+./dualrecursion1/reverse.json/a
+---
+TEST=reverse.json
+NAME=a
+DEP=b
+FAC_DEPENDENCIES=dualrecursion2/reverse.json/b
+jsons/reverse.json
+
+
+---
+./dualrecursion1/reverse.json/c
+---
+TEST=reverse.json
+NAME=c
+DEP=d
+FAC_DEPENDENCIES=dualrecursion2/reverse.json/d
+jsons/reverse.json
+
+
+---
+./dualrecursion1/reverse.json/e
+---
+TEST=reverse.json
+NAME=e
+DEP=f
+FAC_DEPENDENCIES=dualrecursion2/reverse.json/f
+jsons/reverse.json
+
+
+---
+./dualrecursion1/reverse.json/g
+---
+TEST=reverse.json
+NAME=g
+DEP=
+FAC_DEPENDENCIES=jsons/reverse.json
+
+
+---
+./dualrecursion2/reverse.json/b
+---
+TEST=reverse.json
+NAME=b
+DEP=c
+FAC_DEPENDENCIES=dualrecursion1/reverse.json/c
+
+
+---
+./dualrecursion2/reverse.json/d
+---
+TEST=reverse.json
+NAME=d
+DEP=e
+FAC_DEPENDENCIES=dualrecursion1/reverse.json/e
+
+
+---
+./dualrecursion2/reverse.json/f
+---
+TEST=reverse.json
+NAME=f
+DEP=g
+FAC_DEPENDENCIES=dualrecursion1/reverse.json/g
+
+
+---
+./jsons/forward.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": ["a"]}
+    , {"name": "c", "depends": ["b"]}
+    , {"name": "d", "depends": ["c"]}
+    , {"name": "e", "depends": ["d"]}
+    , {"name": "f", "depends": ["e"]}
+    , {"name": "g", "depends": ["f"]}
+    ]
+}
+
+
+---
+./jsons/layered.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": ["a"]}
+    , {"name": "c", "depends": []}
+    , {"name": "d", "depends": ["c"]}
+    , {"name": "e", "depends": []}
+    , {"name": "f", "depends": ["e"]}
+    , {"name": "g", "depends": []}
+    ]
+}
+
+
+
+---
+./jsons/multiple.json
+---
+{ "sections":
+    [ {"name": "a", "depends": []}
+    , {"name": "b", "depends": []}
+    , {"name": "c", "depends": ["a", "b"]}
+    , {"name": "d", "depends": ["a", "c"]}
+    , {"name": "e", "depends": ["a", "b"]}
+    , {"name": "f", "depends": ["e", "d", "c"]}
+    , {"name": "g", "depends": ["f"]}
+    ]
+}
+
+
+
+
+---
+./jsons/reverse.json
+---
+{ "sections":
+    [ {"name": "a", "depends": ["b"]}
+    , {"name": "b", "depends": ["c"]}
+    , {"name": "c", "depends": ["d"]}
+    , {"name": "d", "depends": ["e"]}
+    , {"name": "e", "depends": ["f"]}
+    , {"name": "f", "depends": ["g"]}
+    , {"name": "g", "depends": []}
+    ]
+}
+
+
+
+---
