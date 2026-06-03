@@ -6,7 +6,8 @@
 "simple/$TEST/$NAME":
   cmd: echo "test" > simple/$TEST/$NAME
   dependencies:
-    - jsons/$TEST
+    - target: jsons/$TEST
+      in_fac.yaml: False
   variables:
     TEST: ls jsons
     NAME: jq -r '.sections[].name' jsons/$TEST
@@ -20,7 +21,8 @@
     FAC_DEPENDENCIES=$FAC_DEPENDENCIES
     EOF
   dependencies:
-    - jsons/$TEST
+    - target: jsons/$TEST
+      in_fac.yaml: False
     - simple/$TEST/$DEP
   variables:
     TEST: ls jsons
@@ -36,7 +38,8 @@
     FAC_DEPENDENCIES=$FAC_DEPENDENCIES
     EOF
   dependencies:
-    - jsons/$TEST
+    - target: jsons/$TEST
+      in_fac.yaml: False
     - recursive/$TEST/$DEP
   variables:
     TEST: ls jsons
@@ -52,7 +55,8 @@
     FAC_DEPENDENCIES=$FAC_DEPENDENCIES
     EOF
   dependencies:
-    - jsons/$TEST
+    - target: jsons/$TEST
+      in_fac.yaml: False
     - dualrecursion2/$TEST/$DEP
   variables:
     TEST: ls jsons
